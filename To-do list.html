@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do list</title>
+    <link rel="stylesheet" href="To-do list.css">
+</head>
+
+<body>
+    <div class="toast-container"></div>
+    <h1>To-do List using JavaScript</h1>
+    <div id="container">
+        <form id="oper">
+            <input type="text" name="task" id="task" placeholder="Enter your task">
+            <button id="add">Add</button>
+        </form>
+        <div class="err">
+            <p id="error">Task input cannot be empty!</p>
+        </div>
+        <div class="nav-buttons">
+            <button id="all" class="active">All tasks</button>
+            <button id="completed">Completed tasks</button>
+            <button id="inprogress">In progress tasks</button>
+        </div>
+        <div class="head">
+            <div id="ta">Tasks</div>
+            <div id="ed">Edit</div>
+            <div id="de">Delete</div>
+        </div>
+        <div id="tasks">
+
+        </div>
+    </div>
+    <div id="popup-overlay" class="popup-overlay">
+        <div class="popup">
+            <p id="popup-message"></p>
+            <div class="popup-buttons">
+                <button id="popup-yes" class="popup-yes">Yes</button>
+                <button id="popup-no" class="popup-no">No</button>
+            </div>
+        </div>
+    </div>
+    <script src="To-do list.js"></script>
+</body>
+
+</html>
