@@ -22,6 +22,7 @@ function showToast(message) {
 function createTaskElement(taskValue, isChecked = false) {
   const taskDiv = document.createElement("div");
   taskDiv.classList.add("task");
+  taskDiv.dataset.taskValue = taskValue;
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
@@ -87,14 +88,14 @@ function createTaskElement(taskValue, isChecked = false) {
     if (taskText.contentEditable === "true") {
       showPopup("Do you want to save the changes?", (confirm) => {
         if (confirm) {
-          taskText.contentEditable = "false";
-          editBut.innerHTML = "✏️";
-          showToast("Task " + taskValue + " updated successfully");
           const newTaskValue = taskText.textContent.trim();
           if (newTaskValue !== taskValue) {
-            updateEditedTaskInLocalStorage(taskValue, newTaskValue);
+            updateEditedtaskToLocalStorage(taskDiv, taskValue, newTaskValue);
+          } else {
+            taskText.contentEditable = "false";
+            editBut.innerHTML = "✏️";
+            showToast("No changes made to the task");
           }
-          saveTaskToLocalStorage();
         }
       });
     } else {
@@ -157,15 +158,17 @@ document.addEventListener("DOMContentLoaded", () => {
   popupYes.addEventListener("click", () => {
     if (popupCallback) {
       popupCallback(true);
-      hidePopup();
+      popupCallback = null; // Clear callback after calling it
     }
+    hidePopup();
   });
 
   popupNo.addEventListener("click", () => {
     if (popupCallback) {
       popupCallback(false);
-      hidePopup();
+      popupCallback = null; // Clear callback after calling it
     }
+    hidePopup();
   });
 
   window.showPopup = showPopup;
@@ -339,6 +342,17 @@ window.addEventListener("load", () => {
   }
 });
 
+window.onload = function () {
+  if (localStorage.getItem("tasks")) {
+    tasksList = JSON.parse(localStorage.getItem("tasks"));
+    tasksList.forEach((task) => {
+      const taskDiv = createTaskElement(task.taskValue, task.isChecked);
+      tasks.appendChild(taskDiv);
+    });
+  }
+  toggleNavVisibility();
+};
+
 function saveTaskToLocalStorage() {
   localStorage.setItem("tasks", JSON.stringify(tasksList));
 }
@@ -351,14 +365,20 @@ function updateTaskInLocalStorage(taskValue, isChecked) {
   }
 }
 
-function updateEditedTaskInLocalStorage(oldTaskValue, newTaskValue) {
-  const taskIndex = tasksList.findIndex(
-    (task) => task.taskValue === oldTaskValue
-  );
+function updateEditedtaskToLocalStorage(taskDiv, taskValue, newTaskValue) {
+  tasks.removeChild(taskDiv);
+
+  const newTaskDiv = createTaskElement(newTaskValue);
+
+  tasks.prepend(newTaskDiv);
+
+  const taskIndex = tasksList.findIndex((task) => task.taskValue === taskValue);
   if (taskIndex !== -1) {
-    tasksList[taskIndex].taskValue = newTaskValue;
-    saveTaskToLocalStorage();
+    tasksList.splice(taskIndex, 1);
   }
+  tasksList.unshift({ taskValue: newTaskValue, isChecked: false });
+
+  saveTaskToLocalStorage();
 }
 
 function loadTasksFromLocalStorage() {

@@ -68,7 +68,7 @@ h1 {
 }
 
 #add {
-    padding: 2%;
+    padding: 1.8%;
     width: 10%;
     background-color: #3457D5;
     color: white;
@@ -142,7 +142,7 @@ h1 {
 
 .show-errToast {
     transform: translateX(0);
-    opacity: 0.85;
+    opacity: 1;
 }
 
 .toast {
@@ -198,30 +198,35 @@ h1 {
 }
 
 .popup {
-    background: white;
+    background: rgb(255, 255, 255);
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    font-size: medium;
+    font-style: italic;
     width: 300px;
 }
 
 .popup-buttons {
     margin-top: 20px;
     display: flex;
-    justify-content: space-around;
+    justify-content: end;
 }
 
 .popup-yes {
-    background-color: green;
+    background-color: #2d59f5;
+    font-family: cursive;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 7px 15px;
     border-radius: 5px;
     cursor: pointer;
+    margin-right: 5px;
 }
 
 .popup-no {
-    background-color: red;
+    background-color: rgb(119, 118, 118);
+    font-family: cursive;
     color: white;
     border: none;
     padding: 10px 20px;
