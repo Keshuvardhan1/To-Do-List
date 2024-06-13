@@ -20,22 +20,22 @@
             <p id="error">Task input cannot be empty!</p>
         </div>
         <div class="nav-buttons">
-            <button id="all" class="active">All tasks</button>
-            <button id="completed">Completed tasks</button>
-            <button id="inprogress">In progress tasks</button>
+            <button id="all" class="active">All tasks: <span id="total-task-count">0</span></button>
+            <button id="inprogress">In progress tasks: <span id="inprogress-task-count">0</span></button>
+            <button id="completed">Completed tasks: <span id="completed-task-count">0</span></button>
         </div>
         <div class="head">
             <div id="ta">Tasks</div>
-            <div id="ed">Edit</div>
-            <div id="de">Delete</div>
+            <div id="ac">Actions</div>
         </div>
+        <div id="noTaskAvail">No tasks available!</div>
         <div id="tasks">
-
+            
         </div>
     </div>
     <div id="popup-overlay" class="popup-overlay">
         <div class="popup">
-            <p id="popup-message"></p>
+            <div id="popup-message"></div>
             <div class="popup-buttons">
                 <button id="popup-yes" class="popup-yes">Yes</button>
                 <button id="popup-no" class="popup-no">No</button>
