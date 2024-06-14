@@ -61,7 +61,7 @@ h1 {
 
 #error {
     position: absolute;
-    left: 30px;
+    left: 35px;
     top: 50px;
     color: red;
     display: none;
@@ -288,6 +288,10 @@ h1 {
         margin: 20px;
     }
 
+    #error {
+        left: 31px;
+    }
+
     #container {
         width: 90%;
         height: fit-content;
@@ -331,6 +335,10 @@ h1 {
     #ac {
         width: 30%;
     }
+
+    #error {
+        left: 25px;
+    }
 }
 
 @media screen and (max-width: 385px) {
@@ -354,6 +362,11 @@ h1 {
         padding: 3%;
         width: 20%;
     }
+
+    #error {
+        left: 22px;
+        top: 33px;
+    }
 }
 
 @media screen and (max-width: 280px) {
@@ -365,5 +378,9 @@ h1 {
     #add {
         padding: 7px;
         width: 20%;
+    }
+
+    #error {
+        left: 15px;
     }
 }

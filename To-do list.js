@@ -476,7 +476,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }, 3000);
         }
 
-        errToast("Task input cannot be empty!");
         showError();
         return;
       }
