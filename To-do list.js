@@ -86,8 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
     taskText.style.flex = "1";
     taskText.style.border = "none";
     taskText.style.background = "none";
-    taskText.style.width = "65%";
-    taskText.style.marginLeft = "2.5%";
+    taskText.style.width = "66.5%";
+    taskText.style.marginLeft = "1%";
     taskText.style.marginRight = "2.5%";
     taskText.style.textAlign = "start";
     taskText.style.overflowWrap = "break-word";
@@ -109,7 +109,12 @@ document.addEventListener("DOMContentLoaded", () => {
     editBut.innerHTML = "✏️";
     editBut.addEventListener("click", () => {
       if (taskText.contentEditable === "true") {
-        const newTaskValue = taskText.textContent.trim();
+        const newTaskValue = taskText.textContent
+          .trim()
+          .replace(/\s+/g, " ")
+          .replace(/(^\w)(\w*)/g, function (g0, g1, g2) {
+            return g1.toUpperCase() + g2.toLowerCase();
+          });
         if (!isValidTask(newTaskValue)) {
           errToast("Task contains invalid characters.");
           return;
@@ -268,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
       noTaskAvail.style.display = "none";
       head.style.display = "flex";
     } else {
-      noTaskAvail.style.display = "block";
+      noTaskAvail.style.display = "flex";
       head.style.display = "none";
     }
   }
@@ -283,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const head = document.querySelector(".head");
     if (inProgressTasks.length === 0 && getActiveFilter() === "inprogress") {
-      noTaskAvail.style.display = "block";
+      noTaskAvail.style.display = "flex";
       head.style.display = "none";
     } else if (
       inProgressTasks.length > 0 &&
@@ -304,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const head = document.querySelector(".head");
     if (completedTasks.length === 0 && getActiveFilter() === "completed") {
-      noTaskAvail.style.display = "block";
+      noTaskAvail.style.display = "flex";
       head.style.display = "none";
     } else if (completedTasks.length > 0 && getActiveFilter() === "completed") {
       noTaskAvail.style.display = "none";
@@ -337,15 +342,6 @@ document.addEventListener("DOMContentLoaded", () => {
       (task) => task.style.display !== "none"
     );
     noTaskAvail.style.display = filteredTasks.length === 0 ? "block" : "none";
-
-    // if (filter === "completed") {
-    //   checkCompletedTasks();
-    // } else if (filter === "inprogress") {
-    //   checkInProgressTasks();
-    // } else {
-    //   const head = document.querySelector(".head");
-    //   head.style.display = allTasks.length ? "flex" : "none";
-    // }
   }
 
   function getActiveFilter() {
@@ -374,7 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function isValidTask(taskValue) {
-    return /^[a-zA-Z0-9 ]*$/.test(taskValue);
+    return /^[a-zA-Z0-9" "]*$/.test(taskValue);
   }
 
   function arrangeTaskListOnTop() {
@@ -404,7 +400,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateEditedtaskToLocalStorage(taskDiv, taskValue, newTaskValue) {
     tasks.removeChild(taskDiv);
 
-    const trimmedNewTaksValue = newTaskValue.trim();
+    const trimmedNewTaksValue = newTaskValue
+      .trim()
+      .replace(/\s+/g, " ")
+      .replace(/(^\w)(\w*)/g, function (g0, g1, g2) {
+        return g1.toUpperCase() + g2.toLowerCase();
+      });
 
     const taskIndex = tasksList.findIndex(
       (task) => task.taskValue === taskValue
@@ -459,7 +460,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function addTask(event) {
       event.preventDefault();
-      const taskValue = task.value.trim();
+      const taskValue = task.value
+        .trim()
+        .replace(/\s+/g, " ")
+        .replace(/(^\w)(\w*)/g, function (g0, g1, g2) {
+          return g1.toUpperCase() + g2.toLowerCase();
+        });
 
       if (taskValue === "") {
         function showError() {

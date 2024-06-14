@@ -117,8 +117,9 @@ h1 {
 
 #noTaskAvail {
     padding: 10px;
+    font-weight: bold;
     margin-bottom: 5px;
-    width: 90%;
+    width: 88%;
     background-color: #b6dfe9;
     border-radius: 5px;
     border: lightgrey 2px solid;
