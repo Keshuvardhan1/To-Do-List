@@ -59,6 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
               arrangeTaskListOnTop();
               filterTasks(getActiveFilter());
               completedBtn.click();
+            } else {
+              checkbox.checked = false;
             }
           }
         );
@@ -73,6 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
               arrangeTaskListOnTop();
               filterTasks(getActiveFilter());
               inprogressBtn.click();
+            } else {
+              checkbox.checked = true;
             }
           }
         );
@@ -125,7 +129,12 @@ document.addEventListener("DOMContentLoaded", () => {
           editBut.innerHTML = "✏️";
         } else if (newTaskValue !== taskValue) {
           showToast("Task modified successfully");
-          updateEditedtaskToLocalStorage(taskDiv, taskValue, newTaskValue);
+          updateEditedtaskToLocalStorage(
+            taskDiv,
+            taskValue,
+            newTaskValue,
+            checkbox.checked
+          );
           taskText.contentEditable = "false";
           editBut.innerHTML = "✏️";
           allBtn.click();
@@ -397,10 +406,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function updateEditedtaskToLocalStorage(taskDiv, taskValue, newTaskValue) {
+  function updateEditedtaskToLocalStorage(
+    taskDiv,
+    oldTaskValue,
+    newTaskValue,
+    isChecked
+  ) {
     tasks.removeChild(taskDiv);
 
-    const trimmedNewTaksValue = newTaskValue
+    const trimmedNewTaskValue = newTaskValue
       .trim()
       .replace(/\s+/g, " ")
       .replace(/(^\w)(\w*)/g, function (g0, g1, g2) {
@@ -408,22 +422,23 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     const taskIndex = tasksList.findIndex(
-      (task) => task.taskValue === taskValue
+      (task) => task.taskValue === oldTaskValue
     );
     if (taskIndex !== -1) {
       tasksList.splice(taskIndex, 1);
     }
 
-    if (!isValidTask(trimmedNewTaksValue)) {
+    if (!isValidTask(trimmedNewTaskValue)) {
       errToast("Task contains invalid characters.");
-      const newTaskDiv = createTaskElement(trimmedNewTaksValue);
-
+      const newTaskDiv = createTaskElement(trimmedNewTaskValue, isChecked);
       tasks.prepend(newTaskDiv);
     } else {
-      const newTaskDiv = createTaskElement(trimmedNewTaksValue);
-
+      const newTaskDiv = createTaskElement(trimmedNewTaskValue, isChecked);
       tasks.prepend(newTaskDiv);
-      tasksList.unshift({ taskValue: newTaskValue, isChecked: false });
+      tasksList.unshift({
+        taskValue: trimmedNewTaskValue,
+        isChecked: isChecked,
+      });
       saveTaskToLocalStorage();
       updateTaskCounts();
     }

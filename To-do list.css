@@ -215,11 +215,18 @@ h1 {
     text-align: center;
     font-size: medium;
     font-style: italic;
-    width: 300px;
+    max-height: 50%;
+    width: 20%;
+    overflow-y: auto;
 }
 
+/* #popup-message {
+    height: 95%;
+    overflow-y: scroll;
+} */
+
 .popup-buttons {
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     justify-content: end;
 }
