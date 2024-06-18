@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const completedTaskCount = document.getElementById("completed-task-count");
 
   const popupOverlay = document.getElementById("popup-overlay");
+  const popup = document.querySelector(".popup");
   const popupMessage = document.getElementById("popup-message");
   const popupYes = document.getElementById("popup-yes");
   const popupNo = document.getElementById("popup-no");
@@ -58,7 +59,10 @@ document.addEventListener("DOMContentLoaded", () => {
               updateTaskInLocalStorage(taskValue, true);
               arrangeTaskListOnTop();
               filterTasks(getActiveFilter());
-              completedBtn.click();
+              const activeFilter = getActiveFilter();
+              if (activeFilter === "inprogress") {
+                completedBtn.click();
+              }
             } else {
               checkbox.checked = false;
             }
@@ -74,7 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
               updateTaskInLocalStorage(taskValue, false);
               arrangeTaskListOnTop();
               filterTasks(getActiveFilter());
-              inprogressBtn.click();
+              const activeFilter = getActiveFilter();
+              if (activeFilter === "completed") {
+                inprogressBtn.click();
+              }
             } else {
               checkbox.checked = true;
             }
@@ -137,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
           );
           taskText.contentEditable = "false";
           editBut.innerHTML = "✏️";
-          allBtn.click();
+          // allBtn.click();
         } else {
           taskText.contentEditable = "false";
           editBut.innerHTML = "✏️";
@@ -182,6 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
             filterTasks(getActiveFilter());
             toggleNavVisibility();
             allBtn.click();
+            tasks.scrollTo({ top: 0, behavior: "smooth" });
           }
         }
       );
@@ -200,6 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
     popupCallback = callback;
     popupOverlay.style.visibility = "visible";
     popupOverlay.style.opacity = "1";
+    popup.scrollTo({top: 0, behavior: "instant"});
   }
 
   function hidePopup() {
@@ -272,6 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const taskDiv = createTaskElement(task.taskValue, task.isChecked);
       tasksContainer.appendChild(taskDiv);
     });
+    tasks.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function toggleNavVisibility() {
@@ -388,6 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const taskDiv = createTaskElement(task.taskValue, task.isChecked);
       tasks.appendChild(taskDiv);
     });
+    tasks.scrollTo({top: 0, behavior: "smooth"});
   }
 
   function saveTaskToLocalStorage() {
@@ -442,6 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
       saveTaskToLocalStorage();
       updateTaskCounts();
     }
+    tasks.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function loadTasksFromLocalStorage() {
@@ -522,6 +534,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       task.value = "";
       allBtn.click();
+      tasks.scrollTo({ top: 0, behavior: "smooth" });
     }
   });
 
