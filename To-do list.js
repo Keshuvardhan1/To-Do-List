@@ -39,6 +39,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
   }
 
+  function markTaskAsComplete(taskDiv, taskValue) {
+    taskDiv.classList.add("complete");
+    taskDiv.classList.remove("incomplete");
+  }
+
+  function markTaskAsIncomplete(taskDiv, taskValue) {
+    taskDiv.classList.add("incomplete");
+    taskDiv.classList.remove("complete");
+  }
+
+  document.getElementById("tasks").addEventListener("change", (event) => {
+    const taskDiv = event.target.closest(".task");
+    const taskValue = taskDiv.querySelector(".task-text").textContent;
+
+    if (event.target.checked) {
+      markTaskAsComplete(taskDiv, taskValue);
+    } else {
+      markTaskAsIncomplete(taskDiv, taskValue);
+    }
+
+    saveTaskToLocalStorage();
+  });
+
   function createTaskElement(taskValue, isChecked = false) {
     const taskDiv = document.createElement("div");
     taskDiv.classList.add("task");
@@ -182,7 +205,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const index = tasksList.findIndex(
               (task) => task.taskValue === taskValue
             );
-            if (index !== -1) tasksList.splice(index, 1);
             showToast("Task deleted successfully");
             saveTaskToLocalStorage();
             updateTaskCounts();
@@ -208,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
     popupCallback = callback;
     popupOverlay.style.visibility = "visible";
     popupOverlay.style.opacity = "1";
-    popup.scrollTo({top: 0, behavior: "instant"});
+    popup.scrollTo({ top: 0, behavior: "instant" });
   }
 
   function hidePopup() {
@@ -398,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const taskDiv = createTaskElement(task.taskValue, task.isChecked);
       tasks.appendChild(taskDiv);
     });
-    tasks.scrollTo({top: 0, behavior: "smooth"});
+    tasks.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function saveTaskToLocalStorage() {
