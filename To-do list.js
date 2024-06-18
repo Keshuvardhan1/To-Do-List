@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     checkbox.onclick = function () {
       if (checkbox.checked) {
         showPopup(
-          "Do you want to mark the task as done?\nTask: " + taskValue,
+          "Do you want to mark the task as done?\n\nTask: " + taskValue,
           (confirm) => {
             if (confirm) {
               showToast("Task successfully marked as completed");
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       } else {
         showPopup(
-          "Do you want to mark the task as not done?\nTask: " + taskValue,
+          "Do you want to mark the task as not done?\n\nTask: " + taskValue,
           (confirm) => {
             if (confirm) {
               showToast("Task marked as incomplete");
@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
     delBut.innerHTML = "🗑️";
     delBut.addEventListener("click", () => {
       showPopup(
-        "Do you want delete the task?\n Task: " + taskValue,
+        "Do you want to delete the task?\n\n Task: " + taskValue,
         (confirm) => {
           if (confirm) {
             tasks.removeChild(taskDiv);

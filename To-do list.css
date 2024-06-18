@@ -289,16 +289,17 @@ h1 {
     font-style: italic;
     max-height: 80%;
     width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+#popup-message {
+    height: 80%;
     overflow-y: auto;
 }
 
-/* #popup-message {
-    height: 95%;
-    overflow-y: scroll;
-} */
-
 .popup-buttons {
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
     justify-content: end;
 }
