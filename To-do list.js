@@ -205,17 +205,21 @@ document.addEventListener("DOMContentLoaded", () => {
             const index = tasksList.findIndex(
               (task) => task.taskValue === taskValue
             );
-            showToast("Task deleted successfully");
-            saveTaskToLocalStorage();
-            updateTaskCounts();
-            filterTasks(getActiveFilter());
-            toggleNavVisibility();
-            allBtn.click();
-            tasks.scrollTo({ top: 0, behavior: "smooth" });
+            if (index !== -1) {
+              tasksList.splice(index, 1);
+              showToast("Task deleted successfully");
+              saveTaskToLocalStorage();
+              updateTaskCounts();
+              filterTasks(getActiveFilter());
+              toggleNavVisibility();
+              allBtn.click();
+              tasks.scrollTo({ top: 0, behavior: "smooth" });
+            }
           }
         }
       );
     });
+
     taskDiv.appendChild(delBut);
 
     return taskDiv;
